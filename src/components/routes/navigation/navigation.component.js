@@ -6,8 +6,8 @@ const Navigation = () => {
     return (
         <>
             <div className="navigation">
-                <div className="logo-container" to="/">
-                    <Link>
+                <div className="logo-container">
+                    <Link to="/">
                         <CrwnLogo className="logo" />
                     </Link>
                 </div>
