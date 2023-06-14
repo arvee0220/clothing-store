@@ -10,7 +10,7 @@ import {
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Firebase url link for SDK https://console.firebase.google.com/u/0/project/clothing-store-438c4/overview
-// Your web app's Firebase configuration
+// Web app's Firebase configuration
 const firebaseConfig = {
     apiKey: 'AIzaSyDKQ9uAMfS_QroZUZJn1QgxcqMBVw5FkmY',
     authDomain: 'clothing-store-438c4.firebaseapp.com',
@@ -64,14 +64,6 @@ export const createUserDocumentFromAuth = async (
     }
 
     return userDocRef;
-    // if !user data
-    // create / set the document with the data from userAuth in my collection
-
-    // check if user data exists
-
-    // if
-
-    // return userDocRef
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
