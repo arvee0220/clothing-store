@@ -23,7 +23,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -32,8 +33,10 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
+
 export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
+
 export const signInWithGoogleRedirect = () =>
     signInWithRedirect(auth, googleProvider);
 
