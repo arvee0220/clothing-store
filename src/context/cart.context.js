@@ -61,6 +61,7 @@ export const CartProvider = ({ children }) => {
     const [cartCount, setCartCount] = useState(0);
     const [cartTotal, setCartTotal] = useState(0);
 
+    // Cart-icon effect
     useEffect(() => {
         const newCartCount = cartItems.reduce(
             (total, cartItem) => total + cartItem.quantity,
@@ -69,6 +70,7 @@ export const CartProvider = ({ children }) => {
         setCartCount(newCartCount);
     }, [cartItems]);
 
+    // Checkout component effect
     useEffect(() => {
         const newCartTotal = cartItems.reduce(
             (total, cartItem) => total + cartItem.quantity * cartItem.price,
