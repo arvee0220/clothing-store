@@ -8,7 +8,7 @@ import {
     signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase.utils';
 
-import './sign-in-form.styles.scss';
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles.js';
 
 const defaultFormFields = {
     email: '',
@@ -53,7 +53,7 @@ const SignInForm = () => {
     };
 
     return (
-        <div className='sign-in-container'>
+        <SignInContainer>
             <h2>Already have an account?</h2>
 
             <span>Sign in with your email and password</span>
@@ -61,27 +61,23 @@ const SignInForm = () => {
             <form onSubmit={handleSubmit}>
                 <FormInput
                     label='Email'
-                    inputOptions={{
-                        type: 'email',
-                        onChange: handleChange,
-                        name: 'email',
-                        value: email,
-                        required: true,
-                    }}
+                    type='email'
+                    onChange={handleChange}
+                    name='email'
+                    value={email}
+                    required
                 />
 
                 <FormInput
                     label='Password'
-                    inputOptions={{
-                        type: 'password',
-                        onChange: handleChange,
-                        name: 'password',
-                        value: password,
-                        required: true,
-                    }}
+                    type='password'
+                    onChange={handleChange}
+                    name='password'
+                    value={password}
+                    required
                 />
 
-                <div className='buttons-container'>
+                <ButtonsContainer>
                     <Button
                         buttonType={BUTTON_TYPE_CLASSES.inverted}
                         type='submit'
@@ -96,9 +92,9 @@ const SignInForm = () => {
                     >
                         Google Sign In
                     </Button>
-                </div>
+                </ButtonsContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 };
 

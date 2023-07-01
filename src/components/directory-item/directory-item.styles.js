@@ -27,6 +27,7 @@ export const Body = styled.div`
         color: #4a4a4a;
         text-transform: uppercase;
     }
+
     p {
         font-weight: lighter;
         font-size: 16px;

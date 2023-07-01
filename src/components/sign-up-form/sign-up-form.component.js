@@ -8,8 +8,9 @@ import {
     createUserDocumentFromAuth,
 } from '../../utils/firebase.utils';
 
-import './sign-up-form.styles.scss';
+import './sign-up-form.styles.js';
 import { UserContext } from '../../context/user.context';
+import { SignUpContainer } from './sign-up-form.styles.js';
 
 const defaultFormFields = {
     displayName: '',
@@ -37,10 +38,7 @@ const SignUpForm = () => {
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(
-                email,
-                password
-            );
+            const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
             setCurrentUser(user);
 
@@ -62,60 +60,52 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className='sign-up-container'>
+        <SignUpContainer>
             <h2>Don't have an account?</h2>
             <h1>Sign up with your email and password</h1>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput
                     label='Display Name'
-                    inputOptions={{
-                        type: 'text',
-                        onChange: handleChange,
-                        name: 'displayName',
-                        value: displayName,
-                        required: true,
-                    }}
+                    type='text'
+                    onChange={handleChange}
+                    name='displayName'
+                    value={displayName}
+                    required
                 />
 
                 <FormInput
                     label='Email'
-                    inputOptions={{
-                        type: 'email',
-                        onChange: handleChange,
-                        name: 'email',
-                        value: email,
-                        required: true,
-                    }}
+                    type='email'
+                    onChange={handleChange}
+                    name='email'
+                    value={email}
+                    required
                 />
 
                 <FormInput
                     label='Password'
-                    inputOptions={{
-                        type: 'password',
-                        onChange: handleChange,
-                        name: 'password',
-                        value: password,
-                        required: true,
-                    }}
+                    type='password'
+                    onChange={handleChange}
+                    name='password'
+                    value={password}
+                    required
                 />
 
                 <FormInput
                     label='Confirm Password'
-                    inputOptions={{
-                        type: 'password',
-                        onChange: handleChange,
-                        name: 'confirmPassword',
-                        value: confirmPassword,
-                        required: true,
-                    }}
+                    type='password'
+                    onChange={handleChange}
+                    name='confirmPassword'
+                    value={confirmPassword}
+                    required
                 />
 
                 <Button type='submit' onChange={handleChange}>
                     Sign Up
                 </Button>
             </form>
-        </div>
+        </SignUpContainer>
     );
 };
 
