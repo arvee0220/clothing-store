@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { DirectoryItemContainer, Body, BackgroundImage } from './directory-item.styles.js';
 
 const CategoryItem = ({ category }) => {
-    const { imageUrl, title } = category;
+    const { imageUrl, title, route } = category;
     const navigate = useNavigate();
 
     const goToShopHandler = () => {
-        navigate('/shop');
+        navigate(route);
     };
 
     return (
