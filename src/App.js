@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { Routes, Route } from 'react-router-dom';
 
 import {
@@ -12,6 +13,7 @@ import Home from './routes/home/home.component';
 import Shop from './routes/shop/shop.component';
 import Authentication from './components/sign-in/authentication.component';
 import Checkout from './routes/checkout/checkout.component';
+
 import { setCurrentUser } from './store/user/user.action';
 
 const App = () => {
@@ -26,7 +28,7 @@ const App = () => {
         });
 
         return unsubscribe;
-    }, []);
+    }, [dispatch]);
 
     return (
         <Routes>
