@@ -1,21 +1,22 @@
-import { initializeApp } from "firebase/app";
+import { getApps, initializeApp } from "firebase/app";
 import {
     getAuth,
     signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDKQ9uAMfS_QroZUZJn1QgxcqMBVw5FkmY",
-    authDomain: "clothing-store-438c4.firebaseapp.com",
-    projectId: "clothing-store-438c4",
-    storageBucket: "clothing-store-438c4.appspot.com",
-    messagingSenderId: "707624724613",
-    appId: "1:707624724613:web:4c053bac627cfdfd9121ec",
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 
@@ -25,3 +26,15 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const db = getFirestore(app);
+
+export const createUserDocumentFromAuth = async (userAuth) => {
+    const userDocRef = doc(db, "users", userAuth.uid);
+
+    console.log(userDocRef);
+
+    const userSnapshot = await getDoc(userDocRef);
+
+    console.log("userSnapShot", userSnapshot.exists());
+};
