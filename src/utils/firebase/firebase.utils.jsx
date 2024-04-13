@@ -1,4 +1,4 @@
-import { getApps, initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
     getAuth,
     signInWithRedirect,
@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+// Set-up and connect to firebase database
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -18,14 +19,21 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+console.log("provider: ", googleProvider, "app: ", app);
+
+googleProvider.setCustomParameters({
     prompt: "select_account",
 });
 
+// Set-up firebase user authentication
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const signInWithGooglePopup = () =>
+    signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+    signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore(app);
 
@@ -50,3 +58,5 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     // create / set the document with the data from userAuth in my collection
     return userDocRef;
 };
+
+export const createAuthUserWithEmailAndPassword = () => {};
