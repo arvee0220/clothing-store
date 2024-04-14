@@ -22,8 +22,6 @@ const app = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
-console.log("provider: ", googleProvider, "app: ", app);
-
 googleProvider.setCustomParameters({
     prompt: "select_account",
 });
@@ -65,8 +63,6 @@ export const createUserDocumentFromAuth = async (
         }
     }
 
-    // if user data exist
-    // create / set the document with the data from userAuth in my collection
     return userDocRef;
 };
 
