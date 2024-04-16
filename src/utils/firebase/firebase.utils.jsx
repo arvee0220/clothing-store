@@ -33,6 +33,7 @@ export const auth = getAuth();
 
 export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
+
 export const signInWithGoogleRedirect = () =>
     signInWithRedirect(auth, googleProvider);
 
