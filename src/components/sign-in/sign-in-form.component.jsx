@@ -29,6 +29,8 @@ const SignInForm = () => {
         const { user } = await signInWithGooglePopup();
         const userDocRef = await createUserDocumentFromAuth(user);
 
+        setCurrentUser(user);
+
         return userDocRef;
     };
 
@@ -40,7 +42,9 @@ const SignInForm = () => {
                 email,
                 password
             );
+
             setCurrentUser(user);
+
             resetFormFields();
         } catch (error) {
             switch (error.code) {
@@ -55,8 +59,6 @@ const SignInForm = () => {
             }
         }
     };
-
-    console.log(formFields);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
