@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
     getAuth,
-    signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
@@ -31,14 +30,13 @@ googleProvider.setCustomParameters({
 // Set-up firebase user authentication
 export const auth = getAuth();
 
+// Below are authentication functionalities used for the project mostly account sign-in and account sign-up
 export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
 
-export const signInWithGoogleRedirect = () =>
-    signInWithRedirect(auth, googleProvider);
-
 export const db = getFirestore(app);
 
+// Create db for newly registered users
 export const createUserDocumentFromAuth = async (
     userAuth,
     additionalInformation = {}
@@ -49,7 +47,7 @@ export const createUserDocumentFromAuth = async (
 
     const userSnapshot = await getDoc(userDocRef);
 
-    // if user data doesn't exist
+    // if user data doesn't exist set-up a document reference with the following data(displayName, email, date & time of creation etc.,)
     if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
