@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import "./form-input.styles.scss";
 
+// Component for SignIn and SignUp form
 const FormInput = ({ label, ...otherProps }) => {
     return (
         <div className="group">
