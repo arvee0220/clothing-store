@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { UserProvider } from "./context/user.context.jsx";
 import "./index.scss";
 import { ProductsProvider } from "./context/product.context.jsx";
+import { CartProvider } from "./context/cart.context.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,7 +14,9 @@ root.render(
         <BrowserRouter>
             <UserProvider>
                 <ProductsProvider>
-                    <App />
+                    <CartProvider>
+                        <App />
+                    </CartProvider>
                 </ProductsProvider>
             </UserProvider>
         </BrowserRouter>
