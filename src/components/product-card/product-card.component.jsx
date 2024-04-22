@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/cart.context";
 import Button from "../button/button.component";
-import PropTypes from "prop-types";
+
 import "./product-card.styles.scss";
 
 const ProductCard = ({ product }) => {
@@ -22,14 +22,6 @@ const ProductCard = ({ product }) => {
             </Button>
         </div>
     );
-};
-
-ProductCard.propTypes = {
-    product: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-    }),
 };
 
 export default ProductCard;

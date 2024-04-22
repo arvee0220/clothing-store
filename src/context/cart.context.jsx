@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { addCartItem } from "../utils/cartUtils/cart.utils";
-import PropTypes from "prop-types";
 
 export const CartContext = createContext({
     isCartOpen: false,
@@ -22,8 +21,4 @@ export const CartProvider = ({ children }) => {
     return (
         <CartContext.Provider value={value}>{children}</CartContext.Provider>
     );
-};
-
-CartProvider.propTypes = {
-    children: PropTypes.node.isRequired,
 };

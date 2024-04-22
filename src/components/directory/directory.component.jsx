@@ -1,5 +1,5 @@
 import CategoryItem from "../category-item/category-item.component";
-import PropTypes from "prop-types";
+
 import "./directory.styles.scss";
 
 const Directory = ({ categories }) => {
@@ -12,16 +12,6 @@ const Directory = ({ categories }) => {
             ))}
         </div>
     );
-};
-
-Directory.propTypes = {
-    categories: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            imageUrl: PropTypes.string.isRequired,
-        })
-    ).isRequired,
 };
 
 export default Directory;

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import "./form-input.styles.scss";
 
 // Component for SignIn and SignUp form
@@ -17,15 +16,6 @@ const FormInput = ({ label, ...otherProps }) => {
             )}
         </div>
     );
-};
-
-FormInput.propTypes = {
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    required: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string,
 };
 
 export default FormInput;

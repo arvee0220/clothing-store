@@ -3,7 +3,6 @@ import {
     createUserDocumentFromAuth,
     onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
-import PropTypes from "prop-types";
 
 // as the actual value you want to access
 export const UserContext = createContext({
@@ -30,8 +29,4 @@ export const UserProvider = ({ children }) => {
     return (
         <UserContext.Provider value={value}>{children}</UserContext.Provider>
     );
-};
-
-UserProvider.propTypes = {
-    children: PropTypes.node.isRequired,
 };
