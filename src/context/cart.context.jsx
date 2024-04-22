@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import { addCartItem } from "../utils/cartUtils/cart.utils";
+import { addCartItem, removeCartItem } from "../utils/cartUtils/cart.utils";
 
 export const CartContext = createContext({
     isCartOpen: false,
     setIsOpen: () => {},
     cartItems: [],
     addItemToCart: () => {},
+    removeItemFromCart: () => {},
     cartCount: 0,
 });
 
@@ -26,11 +27,16 @@ export const CartProvider = ({ children }) => {
         setCartItems(addCartItem(cartItems, product));
     };
 
+    const removeItemFromCart = (cartItemToRemove) => {
+        setCartItems(removeCartItem(cartItems, cartItemToRemove));
+    };
+
     const value = {
         isCartOpen,
         setIsCartOpen,
         cartItems,
         addItemToCart,
+        removeItemFromCart,
         cartCount,
     };
 
