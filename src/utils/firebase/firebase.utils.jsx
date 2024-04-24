@@ -77,12 +77,14 @@ export const createUserDocumentFromAuth = async (
     return userDocRef;
 };
 
+// Create user with email and password
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
 
     return await createUserWithEmailAndPassword(auth, email, password);
 };
 
+// Sign-in with email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
 
@@ -91,6 +93,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
+//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
 export const onAuthStateChangedListener = (callback) =>
     onAuthStateChanged(auth, callback);
 
@@ -111,6 +114,7 @@ export const addCollectionAndDocuments = async (
     console.log("done");
 };
 
+// Retrieve data in firebase. Function is used in categories.context.jsx
 export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, "categories");
 
