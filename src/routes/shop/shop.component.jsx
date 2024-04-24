@@ -1,5 +1,30 @@
+import { useContext } from "react";
+import { CategoriesContext } from "../../context/categories.context";
+import CategoryPreview from "../../components/category-preview/category-preview.component";
+import "./shop.styles.scss";
+
 const Shop = () => {
-    return <div>Page not yet available</div>;
+    const { categoriesMap } = useContext(CategoriesContext);
+
+    if (Object.keys(categoriesMap).length === 0) {
+        return <div className="shop-container">Loading categories...</div>;
+    }
+
+    return (
+        <div className="shop-container">
+            {Object.keys(categoriesMap).map((title) => {
+                const products = categoriesMap[title];
+
+                return (
+                    <CategoryPreview
+                        key={title}
+                        title={title}
+                        products={products}
+                    />
+                );
+            })}
+        </div>
+    );
 };
 
 export default Shop;
