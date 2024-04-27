@@ -3,6 +3,7 @@ import {
     createUserDocumentFromAuth,
     onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
+import { USER_ACTION_TYPES } from "../reducerActionTypes/userActionTypes";
 
 // as the actual value you want to access
 export const UserContext = createContext({
@@ -12,10 +13,6 @@ export const UserContext = createContext({
 
 const INITIAL_STATE = {
     currentUser: null,
-};
-
-export const USER_ACTION_TYPES = {
-    SET_CURRENT_USER: "SET_CURRENT_USER",
 };
 
 const userReducer = (state, action) => {
