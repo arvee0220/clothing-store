@@ -25,6 +25,7 @@ const INITIAL_STATE = {
 };
 
 const cartReducer = (state, action) => {
+    const { isCartOpen } = state;
     const { type, payload } = action;
 
     const { CART_TOGGLE, SET_CART_ITEMS } = CART_ACTION_TYPES;
@@ -33,7 +34,7 @@ const cartReducer = (state, action) => {
         case CART_TOGGLE:
             return {
                 ...state,
-                isCartOpen: !state.isCartOpen,
+                isCartOpen: !isCartOpen,
             };
         case SET_CART_ITEMS:
             return {
