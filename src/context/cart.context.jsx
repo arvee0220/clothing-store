@@ -5,6 +5,7 @@ import {
     removeCartItem,
 } from "../utils/cartUtils/cart.utils";
 import { CART_ACTION_TYPES } from "../reducerActionTypes/cartActionTypes";
+import { createAction } from "../utils/reducer/reducer.utils";
 
 export const CartContext = createContext({
     isCartOpen: false,
@@ -54,7 +55,7 @@ export const CartProvider = ({ children }) => {
     const { CART_TOGGLE, SET_CART_ITEMS } = CART_ACTION_TYPES;
 
     const setIsCartOpen = () => {
-        dispatch({ type: CART_TOGGLE });
+        dispatch(createAction(CART_TOGGLE));
     };
 
     const addItemToCart = (product) => {
@@ -73,22 +74,21 @@ export const CartProvider = ({ children }) => {
     };
 
     const updateCartItems = (cartItems) => {
-        const newCartCount = cartItems.reduce(
-            (total, cartItem) => total + cartItem.quantity,
-            0
-        );
-        const newCartTotal = cartItems.reduce(
-            (total, cartItem) => total + cartItem.price * cartItem.quantity,
-            0
-        );
-        dispatch({
-            type: SET_CART_ITEMS,
-            payload: {
-                cartItems,
+        let newCartCount = 0;
+        let newCartTotal = 0;
+
+        cartItems.forEach((item) => {
+            newCartCount += item.quantity;
+            newCartTotal += item.price * item.quantity;
+        });
+
+        dispatch(
+            createAction(SET_CART_ITEMS, {
+                cartItems: cartItems,
                 cartCount: newCartCount,
                 cartTotal: newCartTotal,
-            },
-        });
+            })
+        );
     };
 
     const value = {
