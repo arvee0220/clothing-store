@@ -4,7 +4,7 @@ import {
     clearCartItem,
     removeCartItem,
 } from "../utils/cartUtils/cart.utils";
-import { CART_ACTION_TYPES } from "../reducerActionTypes/cartActionTypes";
+import { CART_ACTION_TYPES } from "../reducerActionTypes/cart.types";
 import { createAction } from "../utils/reducer/reducer.utils";
 
 export const CartContext = createContext({
