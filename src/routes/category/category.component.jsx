@@ -10,12 +10,12 @@ import { selectCategoriesMap } from "../../store/categories/category.selector";
 const Category = () => {
     // useParams hook creates a dynamic routes in react by adjusting its content based on URL parameters (ex. shop/:category, shop/hats, shop/jackets etc.,)
     const { category } = useParams();
-    const categoriesMap = useSelector(selectCategoriesMap);
-    const [products, setProducts] = useState(categoriesMap[category]);
+    const categories = useSelector(selectCategoriesMap);
+    const [products, setProducts] = useState(categories[category]);
 
     useEffect(() => {
-        setProducts(categoriesMap[category]);
-    }, [category, categoriesMap]);
+        setProducts(categories[category]);
+    }, [category, categories]);
 
     return (
         <>
