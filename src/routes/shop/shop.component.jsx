@@ -15,8 +15,6 @@ const Shop = () => {
                 "categories"
             );
 
-            console.log(categoriesArray);
-
             dispatch(setCategories(categoriesArray));
         };
 
