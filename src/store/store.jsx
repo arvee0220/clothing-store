@@ -37,7 +37,8 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }).concat(logger),
+        }).concat(import.meta.env.VITE_ENV !== "production" ? logger : []),
+
     preloadedState: {},
 });
 
