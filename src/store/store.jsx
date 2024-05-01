@@ -12,6 +12,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
+import createSagaMiddleware from "redux-saga";
+import { rootSaga } from "./root-saga";
 
 // redux-persist
 const persistConfig = {
@@ -21,6 +23,9 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Create saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 // root-reducer
 export const store = configureStore({
@@ -37,9 +42,13 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }).concat(import.meta.env.VITE_ENV !== "production" ? logger : []),
-
+        })
+            .concat(import.meta.env.VITE_ENV !== "production" ? logger : [])
+            .concat(sagaMiddleware),
     preloadedState: {},
 });
+
+// Run the saga
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
