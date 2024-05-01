@@ -5,12 +5,17 @@ import ProductCard from "../../components/product-card/product-card.component";
 
 import "./category.styles.scss";
 import { useSelector } from "react-redux";
-import { selectCategoriesMap } from "../../store/categories/category.selector";
+import {
+    selectCategoriesIsLoading,
+    selectCategoriesMap,
+} from "../../store/categories/category.selector";
+import Spinner from "../../components/spinner/spinner.component";
 
 const Category = () => {
     // useParams hook creates a dynamic routes in react by adjusting its content based on URL parameters (ex. shop/:category, shop/hats, shop/jackets etc.,)
     const { category } = useParams();
     const categories = useSelector(selectCategoriesMap);
+    const isLoading = useSelector(selectCategoriesIsLoading);
     const [products, setProducts] = useState(categories[category]);
 
     useEffect(() => {
@@ -20,12 +25,16 @@ const Category = () => {
     return (
         <>
             <h2 className="category-title">{category.toUpperCase()}</h2>
-            <div className="category-container">
-                {products &&
-                    products.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
-            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
+                <div className="category-container">
+                    {products &&
+                        products.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                </div>
+            )}
         </>
     );
 };
