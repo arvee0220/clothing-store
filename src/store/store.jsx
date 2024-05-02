@@ -19,7 +19,6 @@ import { rootSaga } from "./root-saga";
 const persistConfig = {
     key: "root", // The key for the persist
     storage, // The storage to use
-    blacklist: ["user"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -52,5 +51,3 @@ export const store = configureStore({
 sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
-
-console.log(store.getState());

@@ -93,10 +93,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
-export const onAuthStateChangedListener = (callback) =>
-    onAuthStateChanged(auth, callback);
-
 // Upload collection
 export const addCollectionAndDocuments = async (
     collectionKey,
@@ -122,4 +118,21 @@ export const getCategoriesAndDocuments = async () => {
     const querySnapshot = await getDocs(q);
 
     return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+};
+
+//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
+export const onAuthStateChangedListener = (callback) =>
+    onAuthStateChanged(auth, callback);
+
+export const getCurrenUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
 };

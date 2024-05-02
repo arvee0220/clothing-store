@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import Home from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
@@ -8,31 +7,14 @@ import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 
-import { setCurrentUser } from "./store/user/user.action";
-import {
-    createUserDocumentFromAuth,
-    onAuthStateChangedListener,
-} from "./utils/firebase/firebase.utils";
+import { checkUserSession } from "./store/user/user.action";
+import { useDispatch } from "react-redux";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChangedListener((user) => {
-            if (user) {
-                createUserDocumentFromAuth(user);
-                const userSimple = {
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                };
-                dispatch(setCurrentUser(userSimple));
-            } else {
-                dispatch(setCurrentUser(null));
-            }
-        });
-
-        return unsubscribe;
+        dispatch(checkUserSession);
     }, [dispatch]);
 
     return (
