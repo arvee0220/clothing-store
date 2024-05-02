@@ -2,7 +2,7 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 import { USER_ACTION_TYPES } from "./user.types";
 import { signInFailed, signInSuccess } from "./user.action";
 import {
-    getCurrenUser,
+    getCurrentUser,
     createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
@@ -25,7 +25,7 @@ export const getSnapShotFromUserAuth = function* (userAuth, additionalDetails) {
 
 export const isUserAuthenticated = function* () {
     try {
-        const userAuth = yield call(getCurrenUser);
+        const userAuth = yield call(getCurrentUser);
         if (!userAuth) return;
         yield call(getSnapShotFromUserAuth, userAuth);
     } catch (error) {
