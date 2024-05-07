@@ -3,6 +3,8 @@ import { USER_ACTION_TYPES } from "./user.types";
 import {
     signInFailed,
     signInSuccess,
+    signOutFailed,
+    signOutSuccess,
     signUpFailed,
     signUpSuccess,
 } from "./user.action";
@@ -12,6 +14,7 @@ import {
     signInWithGooglePopup,
     signInAuthUserWithEmailAndPassword,
     createAuthUserWithEmailAndPassword,
+    signOutUser,
 } from "../../utils/firebase/firebase.utils";
 
 const {
@@ -20,6 +23,7 @@ const {
     EMAIL_SIGN_IN_START,
     SIGN_UP_START,
     SIGN_UP_SUCCESS,
+    SIGN_OUT_START,
 } = USER_ACTION_TYPES;
 
 // Sign-in Sagas
@@ -30,8 +34,6 @@ export const getSnapShotFromUserAuth = function* (userAuth, additionalDetails) {
             userAuth,
             additionalDetails
         );
-
-        if (!userSnapshot) throw new Error("No user data available");
 
         yield put(
             signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
@@ -115,6 +117,20 @@ export const onSignUpSuccess = function* () {
     yield takeLatest(SIGN_UP_SUCCESS, signInAfterSignUp);
 };
 
+// Sign-out saga
+export const signOut = function* () {
+    try {
+        yield call(signOutUser);
+        yield put(signOutSuccess());
+    } catch (error) {
+        yield put(signOutFailed, error);
+    }
+};
+
+export const onSignOutStart = function* () {
+    yield takeLatest(SIGN_OUT_START, signOut);
+};
+
 export const userSaga = function* () {
     yield all([
         call(onCheckUserSession),
@@ -122,5 +138,6 @@ export const userSaga = function* () {
         call(onEmailSignInStart),
         call(onSignUpStart),
         call(onSignUpSuccess),
+        call(onSignOutStart),
     ]);
 };

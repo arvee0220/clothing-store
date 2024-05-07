@@ -7,15 +7,16 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 import CrwnLogo from "../../assets/crown.svg?react";
 
 import "./navigation.styles.scss";
-import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 const Navigation = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
 
-    const signOutUser = () => dispatch(signOutStart());
+    const signOutUserAut = () => dispatch(signOutStart());
 
     return (
         <>
@@ -28,7 +29,7 @@ const Navigation = () => {
                         SHOP
                     </Link>
                     {currentUser ? (
-                        <span className="nav-link" onClick={signOutUser}>
+                        <span className="nav-link" onClick={signOutUserAut}>
                             SIGN OUT
                         </span>
                     ) : (

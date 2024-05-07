@@ -11,6 +11,9 @@ const {
     SIGN_UP_START,
     SIGN_UP_SUCCESS,
     SIGN_UP_FAILED,
+    SIGN_OUT_START,
+    SIGN_OUT_SUCCESS,
+    SIGN_OUT_FAILED,
 } = USER_ACTION_TYPES;
 
 export const setCurrentUser = (user) => createAction(SET_CURRENT_USER, user);
@@ -33,3 +36,9 @@ export const signUpSuccess = (user, additionalDetails) =>
     createAction(SIGN_UP_SUCCESS, { user, additionalDetails });
 
 export const signUpFailed = (error) => createAction(SIGN_UP_FAILED, error);
+
+export const signOutStart = () => createAction(SIGN_OUT_START);
+
+export const signOutSuccess = () => createAction(SIGN_OUT_SUCCESS);
+
+export const signOutFailed = (error) => createAction(SIGN_OUT_FAILED, error);
