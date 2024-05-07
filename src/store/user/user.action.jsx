@@ -8,6 +8,9 @@ const {
     GOOGLE_SIGN_IN_START,
     SIGN_IN_FAILED,
     SIGN_IN_SUCCESS,
+    SIGN_UP_START,
+    SIGN_UP_SUCCESS,
+    SIGN_UP_FAILED,
 } = USER_ACTION_TYPES;
 
 export const setCurrentUser = (user) => createAction(SET_CURRENT_USER, user);
@@ -22,3 +25,11 @@ export const emailSignInStart = (email, password) =>
 export const signInSuccess = (user) => createAction(SIGN_IN_SUCCESS, user);
 
 export const signInFailed = (error) => createAction(SIGN_IN_FAILED, error);
+
+export const signUpStart = (email, password, displayName) =>
+    createAction(SIGN_UP_START, { email, password, displayName });
+
+export const signUpSuccess = (user, additionalDetails) =>
+    createAction(SIGN_UP_SUCCESS, { user, additionalDetails });
+
+export const signUpFailed = (error) => createAction(SIGN_UP_FAILED, error);

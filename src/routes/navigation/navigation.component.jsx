@@ -15,7 +15,7 @@ const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
 
-    const signOutUser = () => dispatch();
+    const signOutUser = () => dispatch(signOutStart());
 
     return (
         <>
