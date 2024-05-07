@@ -14,6 +14,9 @@ import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./root-saga";
+import { USER_ACTION_TYPES } from "./user/user.types";
+
+const { SIGN_IN_SUCCESS } = USER_ACTION_TYPES;
 
 // redux-persist
 const persistConfig = {
@@ -39,7 +42,9 @@ export const store = configureStore({
                     PERSIST,
                     PURGE,
                     REGISTER,
+                    SIGN_IN_SUCCESS,
                 ],
+                ignoredPaths: ["user.currentUser.createdAt"],
             },
         })
             .concat(import.meta.env.VITE_ENV !== "production" ? logger : [])
