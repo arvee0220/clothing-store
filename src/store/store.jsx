@@ -3,20 +3,20 @@ import { rootReducer } from "./root-reducer";
 import {
     persistStore,
     persistReducer,
-    REHYDRATE,
+    /* REHYDRATE,
     PURGE,
     REGISTER,
     FLUSH,
     PAUSE,
-    PERSIST,
+    PERSIST, */
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./root-saga";
-import { USER_ACTION_TYPES } from "./user/user.types";
+// import { USER_ACTION_TYPES } from "./user/user.types";
 
-const { SIGN_IN_SUCCESS } = USER_ACTION_TYPES;
+// const { SIGN_IN_SUCCESS } = USER_ACTION_TYPES;
 
 // redux-persist
 const persistConfig = {
@@ -34,7 +34,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
+            serializableCheck: false /* {
                 ignoredActions: [
                     FLUSH,
                     REHYDRATE,
@@ -45,7 +45,7 @@ export const store = configureStore({
                     SIGN_IN_SUCCESS,
                 ],
                 ignoredPaths: ["user.currentUser.createdAt"],
-            },
+            } */,
         })
             .concat(import.meta.env.VITE_ENV !== "production" ? logger : [])
             .concat(sagaMiddleware),
@@ -55,4 +55,4 @@ export const store = configureStore({
 // Run the saga
 sagaMiddleware.run(rootSaga);
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);

@@ -1,4 +1,5 @@
-import { USER_ACTION_TYPES } from "./user.types";
+import { createSlice } from "@reduxjs/toolkit";
+// import { USER_ACTION_TYPES } from "./user.types";
 
 const INITIAL_STATE = {
     currentUser: null,
@@ -6,7 +7,20 @@ const INITIAL_STATE = {
     error: null,
 };
 
-export const userReducer = (state = INITIAL_STATE, action) => {
+export const userSlice = createSlice({
+    name: "user",
+    initialState: INITIAL_STATE,
+    reducers: {
+        setCurrentUser(state, action) {
+            state.currentUser = action.payload;
+        },
+    },
+});
+
+export const { setCurrentUser } = userSlice.actions;
+export const userReducer = userSlice.reducer;
+
+/* export const userReducerOld = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
     const {
         SIGN_IN_SUCCESS,
@@ -28,4 +42,4 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         default:
             return state;
     }
-};
+}; */
