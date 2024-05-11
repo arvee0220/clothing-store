@@ -1,10 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./root-reducer";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
+
+const persistConfig = {
+    key: "root", // The key for the persist
+    storage, // The storage to use
+    blacklist: ["user"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // root-reducer
 export const store = configureStore({
-    reducer: rootReducer,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
@@ -12,3 +22,5 @@ export const store = configureStore({
 
     preloadedState: {},
 });
+
+export const persistor = persistStore(store);
