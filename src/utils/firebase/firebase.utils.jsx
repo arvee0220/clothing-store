@@ -40,11 +40,11 @@ googleProvider.setCustomParameters({
 // Set-up firebase user authentication
 export const auth = getAuth();
 
+export const db = getFirestore(app);
+
 // Below are authentication functionalities used for the project mostly account sign-in and account sign-up
 export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
-
-export const db = getFirestore(app);
 
 // Create db for newly registered users
 export const createUserDocumentFromAuth = async (
@@ -54,7 +54,6 @@ export const createUserDocumentFromAuth = async (
     if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid);
-
     const userSnapshot = await getDoc(userDocRef);
 
     // if user data doesn't exist set-up a document reference with the following data(displayName, email, date & time of creation etc.,)
@@ -70,19 +69,21 @@ export const createUserDocumentFromAuth = async (
                 ...additionalInformation,
             });
         } catch (error) {
-            console.log("error creating the user", error);
+            console.log("error creating the user", error.message);
         }
     }
 
-    return userDocRef;
+    return userSnapshot;
 };
 
+// Create user with email and password
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
 
     return await createUserWithEmailAndPassword(auth, email, password);
 };
 
+// Sign-in with email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
 
@@ -90,9 +91,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
-
-export const onAuthStateChangedListener = (callback) =>
-    onAuthStateChanged(auth, callback);
 
 // Upload collection
 export const addCollectionAndDocuments = async (
@@ -111,19 +109,29 @@ export const addCollectionAndDocuments = async (
     console.log("done");
 };
 
+// Retrieve data in firebase. Function is used in categories.context.jsx
 export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, "categories");
-
     const q = query(collectionRef);
 
     const querySnapshot = await getDocs(q);
 
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const { title, items } = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
+    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+};
 
-        return acc;
-    }, {});
+//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
+export const onAuthStateChangedListener = (callback) =>
+    onAuthStateChanged(auth, callback);
 
-    return categoryMap;
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
 };
