@@ -40,11 +40,11 @@ googleProvider.setCustomParameters({
 // Set-up firebase user authentication
 export const auth = getAuth();
 
+export const db = getFirestore(app);
+
 // Below are authentication functionalities used for the project mostly account sign-in and account sign-up
 export const signInWithGooglePopup = () =>
     signInWithPopup(auth, googleProvider);
-
-export const db = getFirestore(app);
 
 // Create db for newly registered users
 export const createUserDocumentFromAuth = async (
@@ -54,7 +54,6 @@ export const createUserDocumentFromAuth = async (
     if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid);
-
     const userSnapshot = await getDoc(userDocRef);
 
     // if user data doesn't exist set-up a document reference with the following data(displayName, email, date & time of creation etc.,)
@@ -70,11 +69,11 @@ export const createUserDocumentFromAuth = async (
                 ...additionalInformation,
             });
         } catch (error) {
-            console.log("error creating the user", error);
+            console.log("error creating the user", error.message);
         }
     }
 
-    return userDocRef;
+    return userSnapshot;
 };
 
 // Create user with email and password
@@ -92,10 +91,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
-
-//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
-export const onAuthStateChangedListener = (callback) =>
-    onAuthStateChanged(auth, callback);
 
 // Upload collection
 export const addCollectionAndDocuments = async (
@@ -122,4 +117,21 @@ export const getCategoriesAndDocuments = async () => {
     const querySnapshot = await getDocs(q);
 
     return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+};
+
+//Firebase authenticattion API. This method is use to listen for changes to the user's sign-in state (ex. log-in log-out)
+export const onAuthStateChangedListener = (callback) =>
+    onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
 };

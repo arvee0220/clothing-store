@@ -1,7 +1,7 @@
 import ShoppingIcon from "../../assets/shopping-bag.svg?react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCartOpen } from "../../store/cart/cart.action";
+import { toggleCartOpen } from "../../store/cart/cart.slice";
 import {
     selectCartCount,
     selectIsCartOpen,
