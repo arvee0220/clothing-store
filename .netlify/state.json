@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Bacoor",
+			"country": {
+				"code": "PH",
+				"name": "Philippines"
+			},
+			"subdivision": {
+				"code": "40",
+				"name": "Calabarzon"
+			},
+			"timezone": "Asia/Manila",
+			"latitude": 14.456,
+			"longitude": 120.9401
+		},
+		"timestamp": 1715465692005
+	}
+}
