@@ -1,3 +1,4 @@
+import ButtonSpinner from "./button-spinner.component";
 import "./button.styles.scss";
 
 const BUTTON_TYPE_CLASSES = {
@@ -6,13 +7,13 @@ const BUTTON_TYPE_CLASSES = {
     default: "button-container",
 };
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
     return (
         <button
             className={`${BUTTON_TYPE_CLASSES[buttonType]}`}
             {...otherProps}
         >
-            {children}
+            {isLoading ? <ButtonSpinner /> : children}
         </button>
     );
 };
