@@ -1,9 +1,27 @@
-import { Action } from "redux";
+import { UnknownAction } from "@reduxjs/toolkit";
 
-type Matchable<AC extends () => Action> = AC & {
+type Matchable<AC extends () => UnknownAction> = AC & {
 	type: ReturnType<AC>["type"];
-	match(action: Action): action is ReturnType<AC>;
+	match(action: UnknownAction): action is ReturnType<AC>;
 };
+
+export function withMatcher<AC extends () => UnknownAction & { type: string }>(
+	actionCreator: AC
+): Matchable<AC>;
+
+export function withMatcher<AC extends (...args: any[]) => UnknownAction & { type: string }>(
+	actionCreator: AC
+): Matchable<AC>;
+
+export function withMatcher(actionCreator: Function) {
+	const type = actionCreator().type;
+	return Object.assign(actionCreator, {
+		type,
+		match(action: UnknownAction) {
+			return action.type === type;
+		},
+	});
+}
 
 export type ActionWithPayload<T, P> = {
 	type: T;
