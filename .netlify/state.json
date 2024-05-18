@@ -1,7 +1,7 @@
 {
 	"geolocation": {
 		"data": {
-			"city": "Bacoor",
+			"city": "Imus",
 			"country": {
 				"code": "PH",
 				"name": "Philippines"
@@ -11,9 +11,9 @@
 				"name": "Calabarzon"
 			},
 			"timezone": "Asia/Manila",
-			"latitude": 14.456,
-			"longitude": 120.9401
+			"latitude": 14.4324,
+			"longitude": 120.9387
 		},
-		"timestamp": 1715890516862
+		"timestamp": 1716044221604
 	}
 }
