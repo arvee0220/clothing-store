@@ -5,6 +5,7 @@ type Matchable<AC extends () => UnknownAction> = AC & {
 	match(action: UnknownAction): action is ReturnType<AC>;
 };
 
+// Function overloading
 export function withMatcher<AC extends () => UnknownAction & { type: string }>(
 	actionCreator: AC
 ): Matchable<AC>;
@@ -32,6 +33,7 @@ export type Action<T> = {
 	type: T;
 };
 
+// Function overloading
 export function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P>;
 
 export function createAction<T extends string, P>(type: T, payload: void): Action<T>;
