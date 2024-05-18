@@ -1,31 +1,34 @@
-import { USER_ACTION_TYPES } from "./user.types";
+import { UnknownAction } from "@reduxjs/toolkit";
 
-const INITIAL_STATE = {
-    currentUser: null,
-    isLoading: false,
-    error: null,
+import {
+	signInSuccess,
+	signInFailed,
+	signOutSuccess,
+	signOutFailed,
+	signUpFailed,
+} from "./user.action";
+
+import { UserData } from "../../utils/firebase/firebase.utils";
+
+export type UserState = {
+	readonly currentUser: UserData | null;
+	readonly isLoading: boolean;
+	readonly error: Error | null;
 };
 
-export const userReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-    const {
-        SIGN_IN_SUCCESS,
-        SIGN_IN_FAILED,
-        SIGN_OUT_FAILED,
-        SIGN_OUT_SUCCESS,
-        SIGN_UP_FAILED,
-    } = USER_ACTION_TYPES;
+const USER_INITIAL_STATE: UserState = {
+	currentUser: null,
+	isLoading: false,
+	error: null,
+};
 
-    switch (type) {
-        case SIGN_IN_SUCCESS:
-            return { ...state, currentUser: payload };
-        case SIGN_OUT_SUCCESS:
-            return { ...state, currentUser: null };
-        case SIGN_OUT_FAILED:
-        case SIGN_IN_FAILED:
-        case SIGN_UP_FAILED:
-            return { ...state, error: payload };
-        default:
-            return state;
-    }
+export const userReducer = (state = USER_INITIAL_STATE, action: UnknownAction): UserState => {
+	if (signInSuccess.match(action)) ({ ...state, currentUser: action.payload });
+
+	if (signOutSuccess.match(action)) ({ ...state, currentUser: null });
+
+	if (signInFailed.match(action) || signOutFailed.match(action) || signUpFailed.match(action))
+		({ ...state, error: action.payload });
+
+	return state;
 };

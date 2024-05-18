@@ -7,22 +7,22 @@ import App from "./App.jsx";
 
 import "./index.scss";
 
-import { store, persistor } from "./store/store.jsx";
+import { store, persistor } from "./store/store";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "./utils/stripe/stripe.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                    <Elements stripe={stripePromise}>
-                        <App />
-                    </Elements>
-                </BrowserRouter>
-            </PersistGate>
-        </Provider>
-    </React.StrictMode>
+	<React.StrictMode>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<BrowserRouter>
+					<Elements stripe={stripePromise}>
+						<App />
+					</Elements>
+				</BrowserRouter>
+			</PersistGate>
+		</Provider>
+	</React.StrictMode>
 );
