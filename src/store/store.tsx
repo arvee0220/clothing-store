@@ -22,10 +22,15 @@ const { SIGN_IN_SUCCESS } = USER_ACTION_TYPES;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+	whitelist: (keyof RootState)[];
+};
+
 // redux-persist
-const persistConfig: PersistConfig<RootState> = {
+const persistConfig: ExtendedPersistConfig = {
 	key: "root", // The key for the persist
 	storage, // The storage to use
+	whitelist: ["cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
