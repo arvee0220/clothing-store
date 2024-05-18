@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { rootReducer } from "./root-reducer";
 import {
 	persistStore,
@@ -9,19 +9,21 @@ import {
 	FLUSH,
 	PAUSE,
 	PERSIST,
+	PersistConfig,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./root-saga";
 import { USER_ACTION_TYPES } from "./user/user.types";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 
 const { SIGN_IN_SUCCESS } = USER_ACTION_TYPES;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 // redux-persist
-const persistConfig = {
+const persistConfig: PersistConfig<RootState> = {
 	key: "root", // The key for the persist
 	storage, // The storage to use
 };
@@ -34,8 +36,8 @@ const sagaMiddleware = createSagaMiddleware();
 // root-reducer
 export const store = configureStore({
 	reducer: persistedReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
+	middleware: (getDefaultMiddleware) => {
+		const middlewares = getDefaultMiddleware({
 			serializableCheck: {
 				ignoredActions: [
 					FLUSH,
@@ -48,10 +50,15 @@ export const store = configureStore({
 				],
 				ignoredPaths: ["user.currentUser.createdAt"],
 			},
-		})
-			.concat(import.meta.env.VITE_ENV !== "production" ? logger : [])
-			.concat(sagaMiddleware),
-	preloadedState: {},
+		});
+
+		if (import.meta.env.VITE_ENV !== "production") middlewares.push(logger as Middleware);
+
+		middlewares.push(sagaMiddleware);
+
+		return middlewares;
+	},
+	preloadedState: {} as RootState & PersistPartial,
 });
 
 // Run the saga
