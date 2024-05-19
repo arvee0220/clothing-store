@@ -72,7 +72,7 @@ export const emailSignInStart = withMatcher((email: string, password: string) =>
 );
 
 export const signInSuccess = withMatcher(
-	(user: UserData): SignInSuccess => createAction(SIGN_IN_SUCCESS, user)
+	(user: UserData & {id: string}): SignInSuccess => createAction(SIGN_IN_SUCCESS, user)
 );
 
 export const signInFailed = withMatcher(
