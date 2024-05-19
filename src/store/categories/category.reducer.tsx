@@ -22,13 +22,17 @@ export const categoriesReducer = (
 	state = CATEGORIES_INITIAL_STATE,
 	action: UnknownAction
 ): CategoriesState => {
-	if (fetchCategoriesStart.match(action)) ({ ...state, isLoading: true });
+	if (fetchCategoriesStart.match(action)) {
+		return { ...state, isLoading: true };
+	}
 
-	if (fetchCategoriesSuccess.match(action))
-		({ ...state, categories: action.payload, isLoading: false });
+	if (fetchCategoriesSuccess.match(action)) {
+		return { ...state, categories: action.payload, isLoading: false };
+	}
 
-	if (fetchCategoriesFailed.match(action))
-		({ ...state, error: action.payload, isLoading: false });
+	if (fetchCategoriesFailed.match(action)) {
+		return { ...state, error: action.payload, isLoading: false };
+	}
 
 	return state;
 };
