@@ -6,6 +6,7 @@ import {
 	ActionWithPayload,
 } from "../../utils/reducer/reducer.utils";
 import { AdditionalInformation, UserData } from "../../utils/firebase/firebase.utils";
+import { User } from "firebase/auth";
 
 const {
 	SET_CURRENT_USER,
@@ -29,7 +30,7 @@ export type SetCurrentUser = ActionWithPayload<typeof SET_CURRENT_USER, UserData
 export type GoogleSignInStart = Action<typeof GOOGLE_SIGN_IN_START>;
 
 export type EmailSignInStart = ActionWithPayload<
-	typeof EMAIL_SIGN_IN_START,
+	USER_ACTION_TYPES.EMAIL_SIGN_IN_START,
 	{ email: string; password: string }
 >;
 
@@ -44,7 +45,7 @@ export type SignUpStart = ActionWithPayload<
 
 export type SignUpSuccess = ActionWithPayload<
 	typeof SIGN_UP_SUCCESS,
-	{ user: UserData; additionalDetails: AdditionalInformation }
+	{ user: User; additionalDetails: AdditionalInformation }
 >;
 
 export type SignUpFailed = ActionWithPayload<typeof SIGN_UP_FAILED, Error>;
@@ -72,7 +73,7 @@ export const emailSignInStart = withMatcher((email: string, password: string) =>
 );
 
 export const signInSuccess = withMatcher(
-	(user: UserData & {id: string}): SignInSuccess => createAction(SIGN_IN_SUCCESS, user)
+	(user: UserData & { id: string }): SignInSuccess => createAction(SIGN_IN_SUCCESS, user)
 );
 
 export const signInFailed = withMatcher(
@@ -85,7 +86,7 @@ export const signUpStart = withMatcher(
 );
 
 export const signUpSuccess = withMatcher(
-	(user: UserData, additionalDetails: AdditionalInformation): SignUpSuccess =>
+	(user: User, additionalDetails: AdditionalInformation): SignUpSuccess =>
 		createAction(SIGN_UP_SUCCESS, { user, additionalDetails })
 );
 
