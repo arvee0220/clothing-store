@@ -1,4 +1,4 @@
-import { UnknownAction } from "@reduxjs/toolkit";
+import { Action, PayloadAction } from "@reduxjs/toolkit";
 import { CartItem } from "./cart.types";
 import { setCartItems, toggleCart } from "./cart.action";
 
@@ -12,10 +12,14 @@ const CART_INITIAL_STATE: CartState = {
 	isCartOpen: false,
 };
 
-export const cartReducer = (state = CART_INITIAL_STATE, action: UnknownAction): CartState => {
-	if (toggleCart.match(action)) ({ ...state, isCartOpen: action.payload });
+export const cartReducer = (state = CART_INITIAL_STATE, action: Action<string>): CartState => {
+	if (toggleCart.match(action)) {
+		return { ...state, isCartOpen: (action as PayloadAction<boolean>).payload };
+	}
 
-	if (setCartItems.match(action)) ({ ...state, cartItems: action.payload });
+	if (setCartItems.match(action)) {
+		return { ...state, cartItems: (action as PayloadAction<CartItem[]>).payload };
+	}
 
 	return state;
 };
