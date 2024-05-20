@@ -1,4 +1,5 @@
 import { FormEvent, ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
@@ -15,6 +16,7 @@ const defaultFormFields = {
 const SignInForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password } = formFields;
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const resetFormFields = () => {
@@ -30,6 +32,7 @@ const SignInForm = () => {
 
 		try {
 			dispatch(emailSignInStart(email, password));
+			navigate("/shop");
 
 			resetFormFields();
 		} catch (error) {

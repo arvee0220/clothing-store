@@ -7,6 +7,7 @@ import { signUpStart } from "../../store/user/user.action";
 
 import "./sign-up-form.styles.scss";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
 	displayName: "",
@@ -18,6 +19,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { displayName, email, password, confirmPassword } = formFields;
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const resetFormFields = () => {
@@ -34,6 +36,8 @@ const SignUpForm = () => {
 
 		try {
 			dispatch(signUpStart(email, password, displayName));
+			navigate("/shop");
+
 			resetFormFields();
 		} catch (error) {
 			if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
