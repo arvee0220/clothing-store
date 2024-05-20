@@ -23,12 +23,17 @@ const USER_INITIAL_STATE: UserState = {
 };
 
 export const userReducer = (state = USER_INITIAL_STATE, action: UnknownAction): UserState => {
-	if (signInSuccess.match(action)) ({ ...state, currentUser: action.payload });
+	if (signInSuccess.match(action)) {
+		return { ...state, currentUser: action.payload };
+	}
 
-	if (signOutSuccess.match(action)) ({ ...state, currentUser: null });
+	if (signOutSuccess.match(action)) {
+		return { ...state, currentUser: null };
+	}
 
-	if (signInFailed.match(action) || signOutFailed.match(action) || signUpFailed.match(action))
-		({ ...state, error: action.payload });
+	if (signInFailed.match(action) || signOutFailed.match(action) || signUpFailed.match(action)) {
+		return { ...state, error: action.payload };
+	}
 
 	return state;
 };
