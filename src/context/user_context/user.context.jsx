@@ -2,8 +2,8 @@ import { createContext, useEffect, useReducer } from "react";
 import {
     createUserDocumentFromAuth,
     onAuthStateChangedListener,
-} from "../utils/firebase/firebase.utils";
-import { USER_ACTION_TYPES } from "../reducerActionTypes/userActionTypes";
+} from "../../utils/firebase/firebase.utils";
+import { USER_ACTION_TYPES } from "../../reducerActionTypes/userActionTypes";
 
 // as the actual value you want to access
 export const UserContext = createContext({

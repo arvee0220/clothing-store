@@ -3,7 +3,7 @@ import {
     addCartItem,
     clearCartItem,
     removeCartItem,
-} from "../utils/cartUtils/cart.utils";
+} from "./cart.utils";
 
 export const CartContext = createContext({
     isCartOpen: false,
