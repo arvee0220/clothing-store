@@ -1,4 +1,4 @@
-import "./button.styles.scss";
+import "./button-spinner.styles.scss";
 
 const ButtonSpinner = () => (
 	<div className="button-spinner-overlay">
