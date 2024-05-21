@@ -1,9 +1,5 @@
 import "./button-spinner.styles.scss";
 
-const ButtonSpinner = () => (
-	<div className="button-spinner-overlay">
-		<div className="button-spinner-container"></div>
-	</div>
-);
+const ButtonSpinner = () => <div className="button-spinner-overlay"></div>;
 
 export default ButtonSpinner;
