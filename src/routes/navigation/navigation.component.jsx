@@ -5,41 +5,41 @@ import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import CrwnLogo from "../../assets/crown.svg?react";
-import { UserContext } from "../../context/user.context";
+import { UserContext } from "../../context/user_context/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
-import { CartContext } from "../../context/cart.context";
+import { CartContext } from "../../context/cart _context/cart.context";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
-    const { isCartOpen } = useContext(CartContext);
+	const { currentUser } = useContext(UserContext);
+	const { isCartOpen } = useContext(CartContext);
 
-    return (
-        <>
-            <div className="navigation">
-                <Link className="logo-container" to="/">
-                    <CrwnLogo className="logo" />
-                </Link>
-                <div className="nav-links-container">
-                    <Link className="nav-link" to="/shop">
-                        SHOP
-                    </Link>
-                    {currentUser ? (
-                        <span className="nav-link" onClick={signOutUser}>
-                            SIGN OUT
-                        </span>
-                    ) : (
-                        <Link className="nav-link" to="/auth">
-                            SIGN IN
-                        </Link>
-                    )}
-                    <CartIcon />
-                </div>
-                {isCartOpen && <CartDropdown />}
-            </div>
-            <Outlet />
-        </>
-    );
+	return (
+		<>
+			<div className="navigation">
+				<Link className="logo-container" to="/">
+					<CrwnLogo className="logo" />
+				</Link>
+				<div className="nav-links-container">
+					<Link className="nav-link" to="/shop">
+						SHOP
+					</Link>
+					{currentUser ? (
+						<span className="nav-link" onClick={signOutUser}>
+							SIGN OUT
+						</span>
+					) : (
+						<Link className="nav-link" to="/auth">
+							SIGN IN
+						</Link>
+					)}
+					<CartIcon />
+				</div>
+				{isCartOpen && <CartDropdown />}
+			</div>
+			<Outlet />
+		</>
+	);
 };
 
 export default Navigation;
