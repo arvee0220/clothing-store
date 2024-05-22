@@ -8,35 +8,27 @@ import "./category.styles.scss";
 
 const Category = () => {
 	const { category } = useParams();
-	const { categoriesMap, loading, error } = useContext(CategoriesContext);
-	const [products, setProducts] = useState([]);
+	const { categoriesMap, loading } = useContext(CategoriesContext);
+	const [products, setProducts] = useState(categoriesMap[category]);
 
 	useEffect(() => {
 		setProducts(categoriesMap[category]);
 	}, [category, categoriesMap]);
 
-	if (loading) {
-		return <Spinner />;
-	}
-
-	if (error) {
-		return <div>Error loading categories</div>;
-	}
-
 	return (
 		<>
-			{products.length > 0 && (
+			{loading ? (
+				<Spinner />
+			) : (
 				<>
 					<h2 className="category-title">{category.toUpperCase()}</h2>
 					<div className="category-container">
-						{products.map((product) => (
-							<ProductCard key={product.id} product={product} />
-						))}
+						{products &&
+							products.map((product) => (
+								<ProductCard key={product.id} product={product} />
+							))}
 					</div>
 				</>
-			)}
-			{products.length === 0 && !loading && !error && (
-				<div>No products found in this category</div>
 			)}
 		</>
 	);
