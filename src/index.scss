@@ -1,0 +1,68 @@
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: none;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+$color-background-light: #ffffff; // White background
+$color-text-light: #333333; // Dark grey text
+$color-header-bg-light: #f8f9fa; // Light grey header background
+$color-link-light: #007bff; // Blue links
+$color-border-light: #dee2e6; // Light grey borders
+
+$color-background-dark: #333333; // Dark grey background
+$color-text-dark: #ffffff; // White text
+$color-header-bg-dark: #212529; // Almost black header background
+$color-link-dark: #1a73e8; // Bright blue links
+$color-border-dark: #343a40; // Darker grey borders
+
+:root {
+    --background-color: $color-background-light;
+    --text-color: $color-text-light;
+    --header-bg: $color-header-bg-light;
+    --link-color: $color-link-light;
+    --border-color: $color-border-light;
+}
+
+[data-theme="dark"] {
+    --background-color: $color-background-dark;
+    --text-color: $color-text-dark;
+    --header-bg: $color-header-bg-dark;
+    --link-color: $color-link-dark;
+    --border-color: $color-border-dark;
+}
+
+body {
+    margin: 0;
+    padding: 20px 40px;
+    font-family: "Open Sans Condensed", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+* {
+    box-sizing: border-box;
+}
