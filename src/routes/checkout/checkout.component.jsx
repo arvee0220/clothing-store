@@ -27,14 +27,13 @@ const Checkout = () => {
 					<span>Remove</span>
 				</div>
 			</div>
-
-			{cartItems.map((cartItem) => (
-				<CheckoutItem key={cartItem.id} cartItem={cartItem} />
-			))}
-			<span className="total">${cartTotal}</span>
-			<PaymentForm />
-		</div>
-	);
+            {cartItems.map((cartItem) => (
+                <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+            ))}
+            <span className="total">Total: ${cartTotal}</span>
+            <PaymentForm />
+  </div>
+ );
 };
 
 export default Checkout;

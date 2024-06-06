@@ -1,7 +1,9 @@
-import { createAction } from "../../utils/reducer/reducer.utils";
-import { CART_ACTION_TYPES } from "./cart.types";
+import { createSlice } from "@reduxjs/toolkit";
 
-const { CART_TOGGLE, SET_CART_ITEMS } = CART_ACTION_TYPES;
+const CART_INITIAL_STATE = {
+    isCartOpen: false,
+    cartItems: [],
+};
 
 const addCartItem = (cartItems, productToAdd) => {
     const existingCartItem = cartItems.find(
@@ -43,19 +45,30 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 const clearCartItem = (cartItems, cartItemToClear) =>
     cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 
-export const addItemToCart = (cartItems, productToAdd) => {
-    const newCartItems = addCartItem(cartItems, productToAdd);
-    return createAction(SET_CART_ITEMS, newCartItems);
-};
+export const cartSlice = createSlice({
+    name: "cart",
+    initialState: CART_INITIAL_STATE,
+    reducers: {
+        toggleCartOpen(state, action) {
+            state.isCartOpen = action.payload;
+        },
+        addItemToCart(state, action) {
+            state.cartItems = addCartItem(state.cartItems, action.payload);
+        },
+        removeItemFromCart(state, action) {
+            state.cartItems = removeCartItem(state.cartItems, action.payload);
+        },
+        clearItemFromCart(state, action) {
+            state.cartItems = clearCartItem(state.cartItems, action.payload);
+        },
+    },
+});
 
-export const removeItemFromCart = (cartItems, cartItemToRemove) => {
-    const newCartItems = removeCartItem(cartItems, cartItemToRemove);
-    return createAction(SET_CART_ITEMS, newCartItems);
-};
+export const {
+    toggleCartOpen,
+    addItemToCart,
+    removeItemFromCart,
+    clearItemFromCart,
+} = cartSlice.actions;
 
-export const clearItemFromCart = (cartItems, cartItemToClear) => {
-    const newCartItems = clearCartItem(cartItems, cartItemToClear);
-    return createAction(SET_CART_ITEMS, newCartItems);
-};
-
-export const toggleCartOpen = (boolean) => createAction(CART_TOGGLE, boolean);
+export const cartReducer = cartSlice.reducer;

@@ -8,15 +8,15 @@ const BUTTON_TYPE_CLASSES = {
 };
 
 const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
-	return (
-		<button
-			disabled={isLoading}
-			className={`${BUTTON_TYPE_CLASSES[buttonType]}`}
-			{...otherProps}
-		>
-			{isLoading ? <ButtonSpinner /> : children}
-		</button>
-	);
+    return (
+        <button
+            disabled={isLoading}
+            className={`${BUTTON_TYPE_CLASSES[buttonType]}`}
+            {...otherProps}
+        >
+            {isLoading ? <ButtonSpinner /> : children}
+        </button>
+    );
 };
 
 export default Button;
