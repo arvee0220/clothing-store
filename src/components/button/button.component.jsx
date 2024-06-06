@@ -2,9 +2,9 @@ import ButtonSpinner from "./button-spinner.component";
 import "./button.styles.scss";
 
 const BUTTON_TYPE_CLASSES = {
-    google: "button-container google-sign-in",
-    inverted: "button-container inverted",
-    default: "button-container",
+	google: "button-container google-sign-in",
+	inverted: "button-container inverted",
+	default: "button-container",
 };
 
 const Button = ({ children, buttonType, isLoading, ...otherProps }) => {

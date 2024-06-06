@@ -10,6 +10,8 @@ import App from "./App.jsx";
 import "./index.scss";
 
 import { store, persistor } from "./store/store.jsx";
+import { stripePromise } from "./utils/stripe/stripe.jsx";
+import { Elements } from "@stripe/react-stripe-js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
